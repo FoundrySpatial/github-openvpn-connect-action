@@ -812,29 +812,34 @@ const run = (callback) => {
 
   // username & password auth
   if (username && password) {
+    core.debug('Username and Password present, using auth-user-pass')
     fs.appendFileSync(configFile, 'auth-user-pass up.txt\n')
     fs.writeFileSync('up.txt', [username, password].join('\n'))
   }
 
   // client key
   if (clientKey) {
+    core.debug('ClientKey present, using key')
     fs.appendFileSync(configFile, 'key client.key\n')
     fs.writeFileSync('client.key', clientKey)
   }
 
   // ca certificate auth
   if (caCert) {
-    fs.appendFileSync(configFile, 'ca ca_cert.key\n')
-    fs.writeFileSync('ca_cert.key', caCert)
+    core.debug('Cert Auth present, using ca')
+    fs.appendFileSync(configFile, 'ca ca_cert.crt\n')
+    fs.writeFileSync('ca_cert.crt', caCert)
   }
 
   // client certificate
   if (clientCert) {
-    fs.appendFileSync(configFile, 'cert client_cert.key\n')
-    fs.writeFileSync('client_cert.key', clientCert)
+    core.debug('Client Cert present, using cert')
+    fs.appendFileSync(configFile, 'cert client_cert.crt\n')
+    fs.writeFileSync('client_cert.crt', clientCert)
   }
 
   if (tlsAuthKey) {
+    core.debug('TLS Auth present, using tls-auth')
     fs.appendFileSync(configFile, 'tls-auth ta.key 1\n')
     fs.writeFileSync('ta.key', tlsAuthKey)
   }
